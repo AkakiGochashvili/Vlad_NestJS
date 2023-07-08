@@ -1,4 +1,10 @@
 {
-  "singleQuote": true,
-  "trailingComma": "all"
+	"singleQuote": true,
+	"printWidth": 80,
+	"proseWrap": "always",
+	"tabWidth": 4,
+	"useTabs": true,
+	"trailingComma": "none",
+	"bracketSpacing": true,
+	"semi": true
 }
