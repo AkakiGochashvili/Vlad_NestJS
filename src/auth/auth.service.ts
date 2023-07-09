@@ -16,7 +16,7 @@ export class AuthService {
 		private config: ConfigService
 	) {}
 
-	async singup(body: AuthDto): Promise<User> {
+	async singup(body: AuthDto): Promise<{ access_token: string }> {
 		const hashed_password = await hash(body.password);
 
 		const user_data = {
@@ -31,9 +31,7 @@ export class AuthService {
 				data: user_data
 			});
 
-			delete user.hash;
-
-			return user;
+			return this.signToken(user.id, user.email);
 		} catch (error) {
 			if (error?.code === 'P2002') {
 				throw new BadRequestException(
@@ -43,7 +41,7 @@ export class AuthService {
 		}
 	}
 
-	async singin(body: AuthDto) {
+	async singin(body: AuthDto): Promise<{ access_token: string }> {
 		const user = await this.prisma.user.findUnique({
 			where: {
 				email: body.email
