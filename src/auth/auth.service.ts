@@ -17,7 +17,6 @@ export class AuthService {
 	) {}
 
 	async singup(body: AuthDto): Promise<{ access_token: string }> {
-		console.log(1);
 		const hashed_password = await hash(body.password);
 
 		const user_data = {
